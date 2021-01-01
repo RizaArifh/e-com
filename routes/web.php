@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -45,6 +46,8 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 route::resource('/user',UserController::class);
 //resource permision
 route::resource('/permission',PermissionController::class);
+//resource role
+route::resource('/role',RoleController::class);
 
 //profile
 route::get("/profile",[UserController::class,'profile'])->name('user.profile');

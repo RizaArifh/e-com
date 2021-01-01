@@ -1,6 +1,9 @@
 {
     "editor.autoIndent": "brackets",
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.defaultFormatter": "apility.beautify-blade",
     "editor.formatOnPaste": true,
-    "blade.format.enable": true
+    "blade.format.enable": true,
+    "[blade]": {
+        "editor.defaultFormatter": "onecentlin.laravel-blade"
+    }
 }

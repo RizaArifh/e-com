@@ -5,6 +5,7 @@
 @endsection
 @section('headcontent')
 @include('template.micro_source.adminlte.adminlte_css')
+@yield('head-resource')
 @endsection
 
 @section('body')
@@ -41,23 +42,23 @@
     <div class="content">
       <div class="container-fluid">
         <div class="row">
-          
+
           @yield('content-admin')
-          
+
         </div>
         <!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content -->
   <!-- /.content-wrapper -->
-    
+
 
   @include('template.segment.control-sidebar')
 
-  {{-- </div> --}}
-    
+  </div>
+
   @include('template.segment.footer')
-  
+
   @endsection
 
 

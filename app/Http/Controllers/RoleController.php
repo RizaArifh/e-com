@@ -4,24 +4,25 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
-
-class PermissionController extends Controller
+use Spatie\Permission\Models\Role;
+class RoleController extends Controller
 {
-    public function __construct(Permission $permission)
-    {
-        $this->permission=$permission;
-        $this->middleware('auth');
-    }
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
+
+     public function __construct(Role $role)
+     {
+         $this->middleware('auth');
+         $this->role=$role;
+     }
     public function index()
     {
-        $permissions=$this->permission::all();
-        // dd($permissions);
-        return view('control.permission.index',['permissions'=>$permissions]);
+        $roles=$this->role::all();
+
+        return view('control.role.index',['roles'=>$roles]);
     }
 
     /**
@@ -31,9 +32,9 @@ class PermissionController extends Controller
      */
     public function create()
     {
-        return view('control.permission.create');
-    }
+        return view('control.role.create',['permissions'=>Permission::all()]);
 
+    }
     /**
      * Store a newly created resource in storage.
      *
@@ -43,16 +44,16 @@ class PermissionController extends Controller
     public function store(Request $request)
     {
         $this->validate($request,[
-            'name'=>'required'
-        ]);
-        
-        $this->permission->create([
-            'name'=>$request->name
+            'name'=>'required|string|unique:roles',
+            'permission'=>'nullable'
         ]);
 
-        return redirect()->route('permission.index')->with('success_create','Permission Created Successfully');
-
-
+        $role=$this->role->create(['name'=>$request->name]);
+        if($request->has('permissions')){
+            $role->givePermissionTo($request->permissions);
+        }
+// dd($role->getAllPermissions());
+        return redirect(route('role.index'))->with('role_created','Role Has Been Created Successfully');
     }
 
     /**
