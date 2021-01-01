@@ -5,7 +5,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\NotificationController;
-use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -41,11 +41,18 @@ Route::post('password/reset', [ResetPasswordController::class,'reset']);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-route::get('/user',[UserController::class]);
+//resource user
+route::resource('/user',UserController::class);
+//resource permision
+route::resource('/permission',PermissionController::class);
 
+//profile
 route::get("/profile",[UserController::class,'profile'])->name('user.profile');
 route::post("/profile",[UserController::class,'postprofile'])->name('user.post_profile');
 
+//notification
 route::get("/notification",[NotificationController::class,'index'])->name('notification.index');
 
+
+//permision
 

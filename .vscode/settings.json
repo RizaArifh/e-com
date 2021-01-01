@@ -1,0 +1,6 @@
+{
+    "editor.autoIndent": "brackets",
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnPaste": true,
+    "blade.format.enable": true
+}
