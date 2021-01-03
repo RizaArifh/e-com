@@ -76,7 +76,18 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+
+    }
+    public function getUserById($id){
+
+        $userd=User::findOrFail($id);
+        // $userd->permissions=$userd->getPermissionsViaRoles();
+        // $userd->permissions=$userd->getDirectPermissions();
+        // $userd->getRoleNames()->first();
+        $userd->permissions=$userd->getAllPermissions();
+        // $userd->roles->first();
+// dd($userd);
+        return response()->json($userd);
     }
 
     /**

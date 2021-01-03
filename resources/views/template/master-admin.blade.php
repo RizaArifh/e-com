@@ -61,7 +61,7 @@
 
   @endsection
 
-
+@yield('modals')
     @section('add-cdn')
     @include('template.micro_source.adminlte.adminlte_js')
 

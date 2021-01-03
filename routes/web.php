@@ -59,3 +59,6 @@ route::get("/notification",[NotificationController::class,'index'])->name('notif
 
 //permision
 
+//user
+route::Get('/userd/{id}',[UserController::class,'getUserById'])->name('user.getdetails');
+
