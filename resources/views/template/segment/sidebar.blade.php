@@ -114,7 +114,7 @@
               <i class="nav-icon fas fa-sign-out-alt"></i>
               <p>
                 Logout
-                {{-- <span class="right badge badge-danger">New</span> --}}
+
               </p>
             </a>
           </li>

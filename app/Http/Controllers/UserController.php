@@ -15,6 +15,10 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+      public function __construct()
+      {
+      $this->middleware('auth');
+      }
     public function index()
     {
         $users=User::latest()->get();
@@ -98,7 +102,14 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+          $user=User::findOrFail($id);
+          $user->permissions=$user->getAllPermissions();
+        $roles=Role::all();
+
+        //   dd($user);
+        $user->roles=$user->roles->first();
+        //   return response()->json($user);
+          return view('control.user.edit',['user'=>$user,'allroles'=>$roles]);
     }
 
     /**
@@ -110,7 +121,26 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // dd($request->all());
+         $this->validate($request,[
+         'name'=>'required|string',
+         'password'=>'sometimes',
+         'email'=>'required|email|unique:users,email,'.$request->id
+         ]);
+
+         $user= User::findOrFail($id);
+         $user->name=$request->name;
+         $user->email=$request->email;
+         $user->phone=$request->phone;
+
+if($request->role==="delete_role"){
+        $user->removeRole();
+}else{
+        $user->assignRole($request->role);
+}
+         $user->save();
+             return redirect(route('user.index'))->with('user_updated','User Berhasil Di Update');
+
     }
 
     /**
@@ -139,5 +169,12 @@ class UserController extends Controller
         $user->update($request->all());
         // dd($user);
         return redirect()->back()->with('profile_updated','Profile Successfully Updated');
+    }
+    public function out(Request $request){
+         $this->guard()->logout();
+
+         $request->session()->invalidate();
+
+         $request->session()->regenerateToken();
     }
 }
