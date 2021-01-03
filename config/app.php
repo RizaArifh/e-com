@@ -133,7 +133,7 @@ return [
     | this array to grant expanded functionality to your applications.
     |
     */
-
+'timezone' => 'Asia/Jakarta','locale' => 'id','faker_locale' => 'id_ID',
     'providers' => [
 
         /*

@@ -1,7 +1,7 @@
 @extends('template.master-admin')
 
 @section('title','Permission')
-@section('title-page-admin','Permission')
+@section('title-page-admin','Permission Panel')
 @section('content-admin')
 <div class="col-12">
   @if(Session::has('success_create'))
@@ -17,7 +17,7 @@
     <div class="col-12">
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title py-2">Permission Table</h3>
+          <h3 class="card-title py-2"><i class="nav-icon fas fa-book mr-2"></i>Permission</h3>
 
           <div class="card-tools">
             <a href={{ route('permission.create') }} class="float-right btn btn-success"><i

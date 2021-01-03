@@ -15,7 +15,7 @@
           <img src="{{asset('AdminLTE/dist/img/user2-160x160.jpg')}}" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">{{ Auth()->user()->name }}</a>
+          <a href="#" class="d-block">{{ Auth::check() ? Auth()->user()->name : '' }}</a>
         </div>
       </div>
 
@@ -36,7 +36,8 @@
         <ul class="nav nav-pills nav-sidebar flex-column " data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-          <li class="nav-item menu-open ">
+          {{-- <li class="nav-item menu-open "> --}}
+          <li class="nav-item ">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>
               <p>
@@ -52,6 +53,12 @@
                 </a>
               </li> --}}
               <li class="nav-item">
+                <a href="{{ route('user.index') }}" class="nav-link">
+                  <i class="nav-icon fas fa-user-cog"></i>
+                  <p>Users</p>
+                </a>
+              </li>
+              <li class="nav-item">
                 <a href="{{ route('permission.index') }}" class="nav-link">
                   <i class="nav-icon fas fa-book"></i>
                   <p>Permission</p>
@@ -63,7 +70,7 @@
                   <p>Role</p>
                 </a>
               </li>
-              
+
             </ul>
           </li>
           <li class="nav-item">

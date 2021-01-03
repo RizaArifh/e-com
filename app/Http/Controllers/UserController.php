@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use Illuminate\Auth\Events\Validated;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Spatie\Permission\Models\Role;
 
 class UserController extends Controller
 {
@@ -14,7 +17,12 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $users=User::latest()->get();
+        $users->transform(function($user){
+            $user->role=$user->getRoleNames()->first();
+            return $user;
+        });
+        return view('control.user.index',['users'=>$users]);
     }
 
     /**
@@ -24,7 +32,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        $roles=Role::all();
+        return view('control.user.create',['roles'=>$roles]);
     }
 
     /**
@@ -35,8 +44,29 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+
+         $this->validate($request,[
+            'name'=>'required|string',
+            'password'=>'required|alpha_num|min:6',
+            'role'=>'required',
+            'email'=>'required|email|unique:users'
+    ]);
+
+    $user=new User();
+    $user->name=$request->name;
+    $user->email=$request->email;
+    $user->phone=$request->phone;
+    $user->password=bcrypt($user->password);
+
+    $user->assignRole($request->role);
+
+    $user->save();
+
+    return redirect(route('user.index'))->with('user_created','User Berhasil Di Buat');
+
     }
+
 
     /**
      * Display the specified resource.
